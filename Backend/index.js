@@ -19,10 +19,18 @@ const io = new Server(server, {
 io.on("connection", (socket) => {
   console.log("User connected:", socket.id)
 
-  socket.on("sendMessage", (message) => {
-    console.log("Message received", message )
+  socket.on("join", (username) => {
+    socket.username = username
+    console.log(username, "joined chat")
+  })
 
-    io.emit("receiveMessage", message);
+  socket.on("sendMessage", (data) => {
+    console.log("Message received", data )
+
+    io.emit("receiveMessage", {
+      text: data.text,
+      user: data.user
+    });
   })
 
   socket.on("disconnect", () => {
