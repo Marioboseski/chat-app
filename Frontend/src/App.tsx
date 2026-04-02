@@ -1,10 +1,17 @@
 import { useEffect, useState } from "react";
 import { socket } from "./socket";
 
+type Message = {
+  text: string,
+  user: string
+}
+
 const App = () => {
 
   const [ message, setMessage ] = useState("");
-  const [ messages, setMessages ] = useState<string[]>([]);
+  const [ messages, setMessages ] = useState<Message[]>([]);
+  const [ username, setUsername ] = useState("");
+  const [ isJoined, setIsJoined ] = useState(false);
 
   useEffect(() => {
     socket.on("connect", () => {
@@ -23,17 +30,41 @@ const App = () => {
   const sendMessage = () => {
     if(!message.trim()) return
 
-    socket.emit("sendMessage", message);
+    socket.emit("sendMessage", {
+      text: message,
+      user: username
+    })
     setMessage("");
   }
 
+  const joinChat = () => {
+    if(username.trim() === "") return;
+
+    socket.emit("join", username)
+    setIsJoined(true);
+  }
+
+  if(!isJoined) {
+    return (
+      <div>
+        <h2>Enter Username</h2>
+        <input type="text"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)} />
+        <button onClick={joinChat}>Join</button>
+      </div>
+    )
+  }
   return (
     <div>
       <p>Chat App</p>
 
       <div>
         {messages.map((msg, index) => (
-          <p key={index}>{msg}</p>
+          <div key={index}>
+            <p>{msg.user}:</p>
+            <p>{msg.text}</p>
+          </div>
         ))}
       </div>
 
