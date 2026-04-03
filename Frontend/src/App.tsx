@@ -50,22 +50,25 @@ const App = () => {
 
   if(!isJoined) {
     return (
-      <div>
-        <h2>Enter Username</h2>
+      <div className="flex flex-col justify-evenly items-center min-h-dvh">
+        <h2>Enter Username and join room chat!</h2>
         <input type="text"
         value={username}
-        onChange={(e) => setUsername(e.target.value)} />
-        <button onClick={joinChat}>Join</button>
+        placeholder="Username"
+        onChange={(e) => setUsername(e.target.value)} 
+        className="border-2 border-black p-1 rounded-md" />
+        <button onClick={joinChat} className="border-2 border-black p-1 rounded-md">Join</button>
 
         <input type="text"
         value={room}
         onChange={(e) => setRoom(e.target.value)}
-        placeholder="Enter room" />
+        placeholder="Enter room"
+        className="border-2 border-black p-1 rounded-md" />
       </div>
     )
   }
   return (
-    <div>
+    <div className="flex flex-col justify-evenly items-center min-h-dvh">
       <p>Chat App</p>
 
       <div>
