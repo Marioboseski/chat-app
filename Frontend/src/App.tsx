@@ -12,6 +12,7 @@ const App = () => {
   const [ messages, setMessages ] = useState<Message[]>([]);
   const [ username, setUsername ] = useState("");
   const [ isJoined, setIsJoined ] = useState(false);
+  const [ room, setRoom ] = useState("");
 
   useEffect(() => {
     socket.on("connect", () => {
@@ -38,9 +39,12 @@ const App = () => {
   }
 
   const joinChat = () => {
-    if(username.trim() === "") return;
+    if(username.trim() === "" || room.trim() === "") return;
 
-    socket.emit("join", username)
+    socket.emit("join", {
+      username,
+      room
+    })
     setIsJoined(true);
   }
 
@@ -52,6 +56,11 @@ const App = () => {
         value={username}
         onChange={(e) => setUsername(e.target.value)} />
         <button onClick={joinChat}>Join</button>
+
+        <input type="text"
+        value={room}
+        onChange={(e) => setRoom(e.target.value)}
+        placeholder="Enter room" />
       </div>
     )
   }
