@@ -16,12 +16,24 @@ const io = new Server(server, {
   },
 })
 
+let users = [];
+
 io.on("connection", (socket) => {
   console.log("User connected:", socket.id)
 
-  socket.on("join", (username) => {
-    socket.username = username
-    console.log(username, "joined chat")
+  socket.on("join", ({ username, room }) => {
+    socket.username = username;
+    socket.room = room;
+
+    socket.join(room);
+
+    users.push({
+      id: socket.id,
+      username,
+      room,
+    });
+    io.to(room).emit("roomUsers", users.filter(user => user.room === room));
+    console.log(`${username} joined room ${room}`);
   })
 
   socket.on("sendMessage", (data) => {
@@ -31,14 +43,14 @@ io.on("connection", (socket) => {
     })
   })
 
-  socket.on("join", ({ username, room }) => {
-  socket.username = username
-  socket.room = room
-  socket.join(room);
-  console.log(`${username} joined room ${room}`);
-})
-
   socket.on("disconnect", () => {
+    users = users.filter(user => user.id !== socket.id);
+
+    if (socket.room) {
+      io.to(socket.room).emit(
+        "roomUsers", users.filter(user => user.room === socket.room)
+      );
+    }
     console.log("User disconnected:", socket.id)
   })
 })
