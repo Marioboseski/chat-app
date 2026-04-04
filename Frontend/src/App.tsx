@@ -7,7 +7,7 @@ type Message = {
 }
 
 type User = {
-  id: number,
+  id: string,
   username: string,
   room: string
 }
@@ -84,12 +84,19 @@ const App = () => {
       <p>Chat App</p>
 
       <div>
-        {messages.map((msg, index) => (
-          <div key={index}>
-            <p>{msg.user}:</p>
-            <p>{msg.text}</p>
-          </div>
-        ))}
+        {messages.map((msg, index) => {
+          const isMe = msg.user === username;
+
+          return (
+            <div key={index}
+            className={`flex ${isMe ? "justify-end" : "justify-start"}`}>
+              <div className={`${isMe ? "bg-blue-500" : "bg-gray-300"}`}>
+                <p>{msg.user}</p>
+                <p>{msg.text}</p>
+              </div>
+            </div>
+          )
+        })}
       </div>
 
       <input type="text"
