@@ -80,36 +80,40 @@ const App = () => {
     )
   }
   return (
-    <div className="flex flex-col justify-evenly items-center min-h-dvh">
-      <p>Chat App</p>
+    <div className="flex min-h-dvh p-3">
 
-      <div>
-        {messages.map((msg, index) => {
-          const isMe = msg.user === username;
-
-          return (
-            <div key={index}
-            className={`flex ${isMe ? "justify-end" : "justify-start"}`}>
-              <div className={`${isMe ? "bg-blue-500" : "bg-gray-300"}`}>
-                <p>{msg.user}</p>
-                <p>{msg.text}</p>
-              </div>
-            </div>
-          )
-        })}
-      </div>
-
-      <input type="text"
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-        placeholder="Type message..." />
-      <button onClick={sendMessage}>Send</button>
-
-      <div>
+      <div className="border-r-2 border-gray-400 p-3">
         <h3>Users in rooms</h3>
         {users.map((user, index) => (
           <p key={index}>{user.username}</p>
         ))}
+      </div>
+
+      <div className="flex flex-col p-3">
+        <div className="flex-1 overflow-y-auto">
+          {messages.map((msg, index) => {
+            const isMe = msg.user === username;
+
+            return (
+              <div key={index}
+                className={`flex ${isMe ? "justify-end" : "justify-start"}`}>
+                <div className={`${isMe ? "bg-blue-500" : "bg-gray-300"}`}>
+                  <p>{msg.user}</p>
+                  <p>{msg.text}</p>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+
+        <div className="flex gap-2 p-3">
+          <input type="text"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            placeholder="Type message..."
+            className="border border-gray-300 rounded-md p-1" />
+          <button onClick={sendMessage} className="bg-blue-300 rounded-md">Send</button>
+        </div>
       </div>
     </div>
   );
