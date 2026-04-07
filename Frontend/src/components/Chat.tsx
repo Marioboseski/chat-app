@@ -15,7 +15,7 @@ type Props = {
 
 const Chat = ({ messages, username, message, setMessage, sendMessage }: Props) => {
   return (
-    <div className="w-3/4 flex flex-col">
+    <div className="w-3/4 flex flex-col h-dvh">
       <Messages messages={messages} username={username} />
 
       <div className="flex gap-2 p-4 border-t-2 border-gray-400">

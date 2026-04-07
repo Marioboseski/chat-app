@@ -82,7 +82,7 @@ const App = () => {
     )
   }
   return (
-    <div className="flex min-h-dvh">
+    <div className="flex h-dvh">
       <SideBar users={users} />
 
       <Chat messages={messages}
