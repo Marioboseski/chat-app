@@ -1,3 +1,5 @@
+import { useEffect, useRef } from "react"
+
 type Message = {
   text: string,
   user: string
@@ -9,6 +11,13 @@ type Props = {
 }
 
 const Messages = ({ messages, username }: Props) => {
+
+  const messagesEnd = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    messagesEnd.current?.scrollIntoView({behavior: "smooth"});
+  },[messages])
+
   return (
     <div className="flex-1 overflow-y-auto p-4">
       {messages.map((msg, index) => {
@@ -26,6 +35,7 @@ const Messages = ({ messages, username }: Props) => {
           </div>
         )
       })}
+      <div ref={messagesEnd} />
     </div>
   );
 }
