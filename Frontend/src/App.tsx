@@ -65,19 +65,20 @@ const App = () => {
   if (!isJoined) {
     return (
       <div className="flex flex-col justify-evenly items-center min-h-dvh">
-        <h2>Enter Username and join room chat!</h2>
+        <h2 className="text-2xl">Enter Username and join room chat!</h2>
         <input type="text"
           value={username}
           placeholder="Username"
           onChange={(e) => setUsername(e.target.value)}
           className="border-2 border-black p-1 rounded-md" />
-        <button onClick={joinChat} className="border-2 border-black p-1 rounded-md">Join</button>
 
         <input type="text"
           value={room}
           onChange={(e) => setRoom(e.target.value)}
           placeholder="Enter room"
           className="border-2 border-black p-1 rounded-md" />
+
+        <button onClick={joinChat} className="border-2 border-black p-1 rounded-md">Join</button>
       </div>
     )
   }
