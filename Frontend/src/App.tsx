@@ -1,6 +1,7 @@
 import { useChat } from "./hooks/useChat";
 import SideBar from "./components/SideBar";
 import Chat from "./components/Chat";
+import Join from "./components/Join";
 
 const App = () => {
 
@@ -18,24 +19,14 @@ const App = () => {
     joinChat,
   } = useChat();
 
-  if (!isJoined) {
+  if(!isJoined) {
     return (
-      <div className="flex flex-col justify-evenly items-center min-h-dvh">
-        <h2 className="text-2xl">Enter Username and join room chat!</h2>
-        <input type="text"
-          value={username}
-          placeholder="Username"
-          onChange={(e) => setUsername(e.target.value)}
-          className="border-2 border-black p-1 rounded-md" />
-
-        <input type="text"
-          value={room}
-          onChange={(e) => setRoom(e.target.value)}
-          placeholder="Enter room"
-          className="border-2 border-black p-1 rounded-md" />
-
-        <button onClick={joinChat} className="border-2 border-black p-1 rounded-md">Join</button>
-      </div>
+      <Join 
+      username={username}
+      setUsername={setUsername}
+      room={room}
+      setRoom={setRoom}
+      joinChat={joinChat} />
     )
   }
   return (
