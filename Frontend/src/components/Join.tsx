@@ -8,6 +8,8 @@ type Props = {
 
 const Join = ({ username, setUsername, room, setRoom, joinChat }: Props) => {
 
+  const isDisabled = !username.trim() || !room.trim();
+
   return (
     <div className="flex justify-center items-center p-2 min-h-dvh w-full">
       <div className="flex flex-col justify-evenly items-center min-h-[500px] w-full max-w-md border-2 border-black">
@@ -30,7 +32,8 @@ const Join = ({ username, setUsername, room, setRoom, joinChat }: Props) => {
           }}
         />
 
-        <button onClick={joinChat} className="border-2 border-black p-1 rounded-md">Join</button>
+        <button onClick={joinChat} className={`border-2 border-black p-1 rounded-md
+        ${isDisabled ? "opacity-65 cursor-not-allowed" : ""}`}>Join</button>
       </div>
     </div>
   );
