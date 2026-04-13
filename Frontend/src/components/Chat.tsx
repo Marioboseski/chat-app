@@ -23,6 +23,11 @@ const Chat = ({ messages, username, message, setMessage, sendMessage }: Props) =
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           placeholder="Type message..."
+          onKeyDown={(e) => {
+            if(e.key === "Enter") {
+              sendMessage();
+            }
+          }}
           className="flex-1 p-2 border-2 border-gray-300 rounded-md w-full" />
         <button onClick={sendMessage} className="bg-blue-400 text-white text-lg p-4 rounded-md hover:bg-blue-500">Send</button>
       </div>
