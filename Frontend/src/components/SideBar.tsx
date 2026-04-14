@@ -1,8 +1,4 @@
-type User = {
-  id: string,
-  username: string,
-  room: string
-};
+import type { User } from "../types";
 
 type Props = {
   users: User[];

@@ -1,10 +1,5 @@
 import { useEffect, useRef } from "react"
-
-type Message = {
-  text: string,
-  user: string
-  time: string
-}
+import type { Message } from "../types";
 
 type Props = {
   messages: Message[],
@@ -32,7 +27,7 @@ const Messages = ({ messages, username }: Props) => {
               }`}>
               <p className="text-sm">{msg.user} :</p>
               <p className="text-lg">{msg.text}</p>
-              <p>{msg.time}</p>
+              <p className="text-xs opacity-50">{msg.time}</p>
             </div>
           </div>
         )

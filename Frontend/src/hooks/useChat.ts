@@ -1,16 +1,6 @@
 import { useEffect, useState } from "react";
 import { socket } from "../socket";
-
-type Message = {
-  text: string,
-  user: string
-}
-
-type User = {
-  id: string,
-  username: string,
-  room: string
-}
+import type { Message, User } from "../types";
 
 export const useChat = () => {
   const [message, setMessage] = useState("");

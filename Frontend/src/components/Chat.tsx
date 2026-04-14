@@ -1,10 +1,5 @@
 import Messages from "./Messages";
-
-type Message = {
-  text: string,
-  user: string
-  time: string
-}
+import type { Message } from "../types";
 
 type Props = {
   messages: Message[],
