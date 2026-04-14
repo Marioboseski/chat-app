@@ -3,6 +3,7 @@ import Messages from "./Messages";
 type Message = {
   text: string,
   user: string
+  time: string
 }
 
 type Props = {

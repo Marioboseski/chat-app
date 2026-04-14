@@ -37,9 +37,18 @@ io.on("connection", (socket) => {
   })
 
   socket.on("sendMessage", (data) => {
+
+    const now = new Date();
+
+    const time = now.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit"
+    })
+
     io.to(socket.room).emit("receiveMessage", {
       text: data.text,
-      user: data.user
+      user: data.user,
+      time
     })
   })
 

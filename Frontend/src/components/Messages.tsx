@@ -3,6 +3,7 @@ import { useEffect, useRef } from "react"
 type Message = {
   text: string,
   user: string
+  time: string
 }
 
 type Props = {
@@ -31,6 +32,7 @@ const Messages = ({ messages, username }: Props) => {
               }`}>
               <p className="text-sm">{msg.user} :</p>
               <p className="text-lg">{msg.text}</p>
+              <p>{msg.time}</p>
             </div>
           </div>
         )
