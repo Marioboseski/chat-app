@@ -1,43 +1,23 @@
-import { useChat } from "./hooks/useChat";
 import SideBar from "./components/SideBar";
 import Chat from "./components/Chat";
 import Join from "./components/Join";
+import { useChatStore } from "./store/chatStore";
+import { useSocket } from "./hooks/useSocket";
 
 const App = () => {
 
-  const {
-    message,
-    setMessage,
-    messages,
-    username,
-    setUsername,
-    room,
-    setRoom,
-    users,
-    isJoined,
-    sendMessage,
-    joinChat,
-  } = useChat();
+  useSocket();
 
-  if(!isJoined) {
-    return (
-      <Join 
-      username={username}
-      setUsername={setUsername}
-      room={room}
-      setRoom={setRoom}
-      joinChat={joinChat} />
-    )
+  const isJoined = useChatStore((s) => s.isJoined);
+
+  if (!isJoined) {
+    return <Join />
   }
+
   return (
     <div className="flex h-dvh">
-      <SideBar users={users} />
-
-      <Chat messages={messages}
-        username={username}
-        message={message}
-        setMessage={setMessage}
-        sendMessage={sendMessage} />
+      <SideBar />
+      <Chat />
     </div>
   );
 }

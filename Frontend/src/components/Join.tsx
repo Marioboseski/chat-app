@@ -1,13 +1,13 @@
-type Props = {
-  username: string,
-  setUsername: (value: string) => void,
-  room: string,
-  setRoom: (value: string) => void,
-  joinChat: () => void,
-};
+import { useChatStore } from "../store/chatStore";
 
-const Join = ({ username, setUsername, room, setRoom, joinChat }: Props) => {
+const Join = () => {
 
+  const username = useChatStore((s) => s.username);
+  const setUsername = useChatStore((s) => s.setUsername);
+  const room = useChatStore((s) => s.room);
+  const setRoom = useChatStore((s) => s.setRoom);
+  const joinChat = useChatStore((s) => s.joinChat);
+  
   const isDisabled = !username.trim() || !room.trim();
 
   return (

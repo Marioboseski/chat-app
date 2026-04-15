@@ -1,13 +1,11 @@
 import { useEffect, useRef } from "react"
-import type { Message } from "../types";
+import { useChatStore } from "../store/chatStore";
 
-type Props = {
-  messages: Message[],
-  username: string
-}
+const Messages = () => {
 
-const Messages = ({ messages, username }: Props) => {
-
+  const messages = useChatStore((s) => s.messages);
+  const username = useChatStore((s) => s.username);
+    
   const messagesEnd = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {

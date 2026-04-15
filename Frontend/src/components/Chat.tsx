@@ -1,18 +1,15 @@
 import Messages from "./Messages";
-import type { Message } from "../types";
+import { useChatStore } from "../store/chatStore";
 
-type Props = {
-  messages: Message[],
-  username: string,
-  message: string,
-  setMessage: (value: string) => void,
-  sendMessage: () => void,
-}
+const Chat = () => {
 
-const Chat = ({ messages, username, message, setMessage, sendMessage }: Props) => {
+  const message = useChatStore((s) => s.message);
+  const setMessage = useChatStore((s) => s.setMessage);
+  const sendMessage = useChatStore((s) => s.sendMessage);
+  
   return (
     <div className="w-3/4 flex flex-col h-dvh">
-      <Messages messages={messages} username={username} />
+      <Messages />
 
       <div className="flex gap-2 p-4 border-t-2 border-gray-500">
         <input type="text"

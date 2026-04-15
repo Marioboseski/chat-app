@@ -1,10 +1,9 @@
-import type { User } from "../types";
+import { useChatStore } from "../store/chatStore";
 
-type Props = {
-  users: User[];
-};
+const SideBar = () => {
 
-const SideBar = ({ users }: Props) => {
+  const users = useChatStore((s) => s.users);
+  
   return (
     <div className="w-1/4 border-r-2 border-gray-500 p-4">
       <h3 className="font-bold">Users in room:</h3>
