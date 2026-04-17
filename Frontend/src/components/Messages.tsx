@@ -13,7 +13,7 @@ const Messages = () => {
   },[messages])
 
   return (
-    <div className="flex-1 overflow-y-auto p-4">
+    <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-3">
       {messages.map((msg, index) => {
         const isMe = msg.user === username;
 
