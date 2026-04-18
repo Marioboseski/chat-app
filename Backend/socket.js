@@ -32,6 +32,14 @@ const setupSocket = (io) => {
       });
     });
 
+    socket.on("typing", () => {
+      socket.to(socket.room).emit("typing", socket.username);
+    });
+
+    socket.on("stopTyping", () => {
+      socket.to(socket.room).emit("stopTyping");
+    });
+
     socket.on("disconnect", () => {
       removeUser(socket.id);
 

@@ -5,12 +5,15 @@ const Messages = () => {
 
   const messages = useChatStore((s) => s.messages);
   const username = useChatStore((s) => s.username);
-    
+
   const messagesEnd = useRef<HTMLDivElement | null>(null);
 
+  const isTyping = useChatStore((s) => s.isTyping);
+  const typingUser = useChatStore((s) => s.typingUser);
+
   useEffect(() => {
-    messagesEnd.current?.scrollIntoView({behavior: "smooth"});
-  },[messages])
+    messagesEnd.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages])
 
   return (
     <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-3">
@@ -30,6 +33,9 @@ const Messages = () => {
           </div>
         )
       })}
+      {isTyping && typingUser !== username && (
+        <p className="text-sm text-gray-600 italic">{typingUser} is typing...</p>
+      )}
       <div ref={messagesEnd} />
     </div>
   );

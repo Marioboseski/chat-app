@@ -1,12 +1,16 @@
 import Messages from "./Messages";
 import { useChatStore } from "../store/chatStore";
+import { socket } from "../socket";
+import { useRef } from "react";
 
 const Chat = () => {
 
   const message = useChatStore((s) => s.message);
   const setMessage = useChatStore((s) => s.setMessage);
   const sendMessage = useChatStore((s) => s.sendMessage);
-  
+
+  const typingTimeout = useRef<ReturnType<typeof setTimeout> | null> (null);
+
   return (
     <div className="w-3/4 flex flex-col h-dvh">
       <Messages />
@@ -14,10 +18,22 @@ const Chat = () => {
       <div className="flex gap-2 p-4 border-t-2 border-gray-500">
         <input type="text"
           value={message}
-          onChange={(e) => setMessage(e.target.value)}
+          onChange={(e) => {
+            setMessage(e.target.value);
+            socket.emit("typing");
+
+            if(typingTimeout.current) {
+              clearTimeout(typingTimeout.current);
+            }
+
+            typingTimeout.current = setTimeout(() => {
+              socket.emit("stopTyping");
+            }, 1000);
+          }}
+
           placeholder="Type message..."
           onKeyDown={(e) => {
-            if(e.key === "Enter") {
+            if (e.key === "Enter") {
               sendMessage();
             }
           }}

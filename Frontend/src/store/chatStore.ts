@@ -17,7 +17,13 @@ type ChatStore = {
   sendMessage: () => void,
   joinChat: () => void,
   setMessages: (message: Message) => void,
-  setUsers: (users: User[]) => void, 
+  setUsers: (users: User[]) => void,
+
+  isTyping: boolean,
+  typingUser: string
+
+  setTyping: (value: string) => void,
+  clearTyping: () => void,
 };
 
 export const useChatStore = create<ChatStore>((set, get) => ({
@@ -27,37 +33,43 @@ export const useChatStore = create<ChatStore>((set, get) => ({
   room: "",
   users: [],
   isJoined: false,
+  isTyping: false,
+  typingUser: "",
 
   setMessage: (value) => set({ message: value }),
   setUsername: (value) => set({ username: value }),
   setRoom: (value) => set({ room: value }),
 
-  setMessages: (message) => 
+  setMessages: (message) =>
     set((state) => ({
       messages: [...state.messages, message],
     })),
 
-    setUsers: (users) => set({ users }),
+  setUsers: (users) => set({ users }),
 
-    sendMessage: () => {
-      const { message, username } = get();
+  sendMessage: () => {
+    const { message, username } = get();
 
-      if(!message.trim()) return;
+    if (!message.trim()) return;
 
-      socket.emit("sendMessage", {
-        text: message,
-        user: username,
-      });
-      set({ message: "" });
-    },
+    socket.emit("sendMessage", {
+      text: message,
+      user: username,
+    });
+    set({ message: "" });
+  },
 
-    joinChat: () => {
-      const { username, room } = get();
+  joinChat: () => {
+    const { username, room } = get();
 
-      if(!username.trim() || !room.trim()) return;
+    if (!username.trim() || !room.trim()) return;
 
-      socket.emit("join", { username, room });
+    socket.emit("join", { username, room });
 
-      set({ isJoined: true });
-    },
+    set({ isJoined: true });
+  },
+
+  setTyping: (username: string) =>
+    set({ isTyping: true, typingUser: username }),
+  clearTyping: () => set({ isTyping: false, typingUser: "" })
 }))
