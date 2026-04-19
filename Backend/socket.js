@@ -25,11 +25,15 @@ const setupSocket = (io) => {
         minute: "2-digit"
       });
 
-      io.to(socket.room).emit("receiveMessage", {
+      const message = {
+        id: Date.now().toString(),
         text: data.text,
         user: data.user,
-        time
-      });
+        time,
+        status: "delivered"
+      };
+
+      io.to(socket.room).emit("receiveMessage", message)
     });
 
     socket.on("typing", () => {
@@ -38,6 +42,10 @@ const setupSocket = (io) => {
 
     socket.on("stopTyping", () => {
       socket.to(socket.room).emit("stopTyping");
+    });
+
+    socket.on("markSeen", (messageId) => {
+      socket.to(socket.room).emit("messageSeen", messageId);
     });
 
     socket.on("disconnect", () => {

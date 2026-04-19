@@ -24,6 +24,8 @@ type ChatStore = {
 
   setTyping: (value: string) => void,
   clearTyping: () => void,
+
+  markMessageSeen: (value: string) => void,
 };
 
 export const useChatStore = create<ChatStore>((set, get) => ({
@@ -71,5 +73,11 @@ export const useChatStore = create<ChatStore>((set, get) => ({
 
   setTyping: (username: string) =>
     set({ isTyping: true, typingUser: username }),
-  clearTyping: () => set({ isTyping: false, typingUser: "" })
+  clearTyping: () => set({ isTyping: false, typingUser: "" }),
+
+  markMessageSeen: (id: string) => 
+    set((state) => ({
+      messages: state.messages.map((message) => 
+      message.id === id ? { ...message, status: "seen" } : message),
+    }))
 }))
