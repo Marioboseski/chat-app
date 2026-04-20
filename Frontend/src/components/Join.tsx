@@ -2,11 +2,11 @@ import { useChatStore } from "../store/chatStore";
 
 const Join = () => {
 
-  const username = useChatStore((s) => s.username);
-  const setUsername = useChatStore((s) => s.setUsername);
-  const room = useChatStore((s) => s.room);
-  const setRoom = useChatStore((s) => s.setRoom);
-  const joinChat = useChatStore((s) => s.joinChat);
+  const username = useChatStore((store) => store.username);
+  const setUsername = useChatStore((store) => store.setUsername);
+  const room = useChatStore((store) => store.room);
+  const setRoom = useChatStore((store) => store.setRoom);
+  const joinChat = useChatStore((store) => store.joinChat);
   
   const isDisabled = !username.trim() || !room.trim();
 

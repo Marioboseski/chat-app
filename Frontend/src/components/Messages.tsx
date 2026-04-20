@@ -3,13 +3,13 @@ import { useChatStore } from "../store/chatStore";
 
 const Messages = () => {
 
-  const messages = useChatStore((s) => s.messages);
-  const username = useChatStore((s) => s.username);
+  const messages = useChatStore((store) => store.messages);
+  const username = useChatStore((store) => store.username);
 
   const messagesEnd = useRef<HTMLDivElement | null>(null);
 
-  const isTyping = useChatStore((s) => s.isTyping);
-  const typingUser = useChatStore((s) => s.typingUser);
+  const isTyping = useChatStore((store) => store.isTyping);
+  const typingUser = useChatStore((store) => store.typingUser);
 
   useEffect(() => {
     messagesEnd.current?.scrollIntoView({ behavior: "smooth" });
@@ -26,12 +26,14 @@ const Messages = () => {
               ? "bg-blue-500 text-white"
               : "bg-gray-300"
               }`}>
-              <p className="text-sm">{msg.user} :</p>
-              <p className="text-lg">{msg.text}</p>
-              <p className="text-xs opacity-50">{msg.time}</p>
-              {isMe && (
-                <p>{msg.status === "seen" ? "seen" : "delivered"}</p>
-              )}
+              <div className="w-full max-w-32">
+                <p className="text-sm">{msg.user} :</p>
+                <p className="text-lg">{msg.text}</p>
+                <p className="text-xs opacity-50">{msg.time}</p>
+                {isMe && (
+                  <p>{msg.status === "seen" ? "seen" : "delivered"}</p>
+                )}
+              </div>
             </div>
           </div>
         )

@@ -8,7 +8,7 @@ const App = () => {
 
   useSocket();
 
-  const isJoined = useChatStore((s) => s.isJoined);
+  const isJoined = useChatStore((store) => store.isJoined);
 
   if (!isJoined) {
     return <Join />

@@ -5,9 +5,9 @@ import { useRef } from "react";
 
 const Chat = () => {
 
-  const message = useChatStore((s) => s.message);
-  const setMessage = useChatStore((s) => s.setMessage);
-  const sendMessage = useChatStore((s) => s.sendMessage);
+  const message = useChatStore((store) => store.message);
+  const setMessage = useChatStore((store) => store.setMessage);
+  const sendMessage = useChatStore((store) => store.sendMessage);
 
   const typingTimeout = useRef<ReturnType<typeof setTimeout> | null> (null);
 

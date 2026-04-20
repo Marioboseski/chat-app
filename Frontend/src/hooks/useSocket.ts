@@ -3,13 +3,13 @@ import { socket } from "../socket";
 import { useChatStore } from "../store/chatStore";
 
 export const useSocket = () => {
-  const setMessages = useChatStore((s) => s.setMessages);
-  const setUsers = useChatStore((s) => s.setUsers);
-  const setTyping = useChatStore((s) => s.setTyping);
-  const clearTyping = useChatStore((s) => s.clearTyping);
-  const markMessageSeen = useChatStore((s) => s.markMessageSeen);
-  const username = useChatStore((s) => s.username);
-  const messages = useChatStore((s) => s.messages);
+  const setMessages = useChatStore((store) => store.setMessages);
+  const setUsers = useChatStore((store) => store.setUsers);
+  const setTyping = useChatStore((store) => store.setTyping);
+  const clearTyping = useChatStore((store) => store.clearTyping);
+  const markMessageSeen = useChatStore((store) => store.markMessageSeen);
+  const username = useChatStore((store) => store.username);
+  const messages = useChatStore((store) => store.messages);
 
   useEffect(() => {
     socket.on("receiveMessage", (data) => {

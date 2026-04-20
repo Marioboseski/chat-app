@@ -3,7 +3,7 @@ import { Circle } from "lucide-react";
 
 const SideBar = () => {
 
-  const users = useChatStore((s) => s.users);
+  const users = useChatStore((store) => store.users);
   
   return (
     <div className="w-1/4 border-r-2 border-gray-500 p-4">
