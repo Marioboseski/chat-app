@@ -51,6 +51,7 @@ Follow these steps to run the project locally
 ### 1. Clone the repository
 
 git clone https://github.com/Marioboseski/chat-app.git
+
 cd chat-app
 
 ### 2. Install dependencies 
@@ -79,12 +80,14 @@ http://localhost:5000
 
 ### 4. How to run the app
 
-Start backend
+#### Start backend
 
 cd backend
+
 npm run dev
 
-Start frontend
+#### Start frontend
 
 cd frontend 
+
 npm run dev
