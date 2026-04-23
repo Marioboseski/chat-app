@@ -4,7 +4,7 @@ A full - stack real - time chat application built with modern web technologies. 
 
 ## Live Demo
 
-
+https://chat-app-mario.netlify.app/
 
 ## Features 
 
